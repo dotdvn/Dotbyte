@@ -7,7 +7,7 @@ export default function Navbar() {
       <a href="#top" className="studio-brand" aria-label="DotByte Systems home"><span>dotbyte<span className="brand-period">.</span><small>SYSTEMS</small></span></a>
       <button className="menu-toggle" aria-expanded={open} aria-controls="studio-navigation" aria-label={open ? 'Close navigation' : 'Open navigation'} onClick={() => setOpen(!open)}>{open ? <X/> : <Menu/>}</button>
       <nav id="studio-navigation" className={open ? 'nav-open' : ''} aria-label="Main navigation">
-        {[['Services','#services'],['Pricing','#pricing']].map(([label,href])=><a key={href} href={href} onClick={()=>setOpen(false)}>{label}</a>)}
+        {[['Services','#services'],['Pricing','#pricing'],['Play','#arcade']].map(([label,href])=><a key={href} href={href} onClick={()=>setOpen(false)}>{label}</a>)}
         <a className="nav-inquiry" href="#contact" onClick={()=>setOpen(false)}>Let’s build <ArrowUpRight size={15}/></a>
       </nav>
     </div>

@@ -10,6 +10,7 @@ import Footer from './components/Footer';
 import SubscriptionModal from './components/SubscriptionModal';
 import DotAIChatbot from './components/DotAIChatbot';
 import ProjectMatcher from './components/ProjectMatcher';
+import ElectronicsArcade from './components/ElectronicsArcade';
 const HeroNodeGraph=lazy(()=>import('./components/HeroNodeGraph'));
 const services=[
  {name:'Electronics & IoT',tag:'01 / THE PHYSICAL',description:'Custom firmware, connected sensors, and working prototypes. Built around ESP32, ESP8266, and Arduino.',price:'From ₹399',Icon:Cpu,plan:'Custom IoT Code Plan'},
@@ -29,6 +30,7 @@ export default function App(){
  {/* Selected Work is temporarily disabled; ProjectsGallery retains its content. */}
  <FeaturesGrid/>
  <section id="philosophy" className="studio-philosophy studio-wrap"><span className="micro">OUR BELIEF</span><blockquote>Good technology should open doors.<br/><em>Not stretch your budget.</em></blockquote><p>We believe that digital platforms and core electronics can be designed with exceptional aesthetic quality while remaining highly affordable and accessible for student prototypes and growing businesses.</p><span className="micro">DOTBYTE SYSTEMS / BUILT WITH INTENTION</span></section>
+ <ElectronicsArcade/>
  <PricingSection onSelectPlan={selectPlan}/>
  </main><Footer/><div className="paper-surface">{modalOpen && <SubscriptionModal isOpen={modalOpen} onClose={()=>setModalOpen(false)} selectedPlan={selectedPlan}/>}</div><DotAIChatbot/></div></MotionConfig>;
 }
