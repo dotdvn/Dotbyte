@@ -1,0 +1,6 @@
+{
+  "name": "Dotprojects",
+  "description": "A sophisticated luxury dark-mode interface for high-end creative AI tools, displaying neural networks, satellite media galleries, interactive nodes, and glassmorphic layouts.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

@@ -1,0 +1,3 @@
+import { WHY_CHOOSE_US } from '../data';
+import { ArrowUpRight } from 'lucide-react';
+export default function FeaturesGrid(){return <section id="capabilities" className="studio-wrap studio-section"><div className="section-index micro"><span>03 / THE DOTBYTE DIFFERENCE</span><span>SMALL DETAILS. BETTER OUTCOMES.</span></div><div className="studio-heading"><h2>Built with care.<br/><span>Made for your world.</span></h2><p>Premium hardware design, custom microcontrollers, and modern web interfaces for academic prototypes and growing businesses.</p></div><div className="benefit-grid">{WHY_CHOOSE_US.map((item,i)=><article key={item.id}><span className="micro">0{i+1} <ArrowUpRight size={15}/></span><h3>{item.title}</h3><p>{item.description}</p></article>)}</div></section>}
