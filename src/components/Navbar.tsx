@@ -8,6 +8,7 @@ export default function Navbar() {
       <button className="menu-toggle" aria-expanded={open} aria-controls="studio-navigation" aria-label={open ? 'Close navigation' : 'Open navigation'} onClick={() => setOpen(!open)}>{open ? <X/> : <Menu/>}</button>
       <nav id="studio-navigation" className={open ? 'nav-open' : ''} aria-label="Main navigation">
         {[['Services','#services'],['Pricing','#pricing']].map(([label,href])=><a key={href} href={href} onClick={()=>setOpen(false)}>{label}</a>)}
+        <a className="portfolio-link" href="https://dotdvn.me" target="_blank" rel="noopener noreferrer">DOTDVN <ArrowUpRight size={13}/></a>
         <a className="nav-inquiry" href="#contact" onClick={()=>setOpen(false)}>Let’s build <ArrowUpRight size={15}/></a>
       </nav>
     </div>

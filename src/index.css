@@ -284,3 +284,7 @@
 .studio-nav{width:100%;height:auto;display:block;border-bottom:1px solid var(--line)}
 .studio-nav-inner{height:104px;display:flex;align-items:center;justify-content:space-between}
 @media(max-width:700px){.studio-nav{height:auto;position:relative}.studio-nav-inner{height:83px;position:relative}}
+
+/* Personal portfolio credit */
+.portfolio-link{display:inline-flex;align-items:center;gap:5px;color:#1764c0!important;font:9px var(--mono);letter-spacing:1px;transition:transform .2s,color .2s}.portfolio-link:hover{color:var(--ink)!important;transform:translateY(-2px)}.portfolio-link svg{transition:transform .2s}.portfolio-link:hover svg{transform:translate(2px,-2px)}
+@media(max-width:700px){.studio-nav nav .portfolio-link{padding:12px;font-size:10px}}
