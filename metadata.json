@@ -1,6 +1,6 @@
 {
-  "name": "Dotprojects",
-  "description": "A sophisticated luxury dark-mode interface for high-end creative AI tools, displaying neural networks, satellite media galleries, interactive nodes, and glassmorphic layouts.",
+  "name": "DotByte Systems",
+  "description": "Website, mobile app, IoT, ESP32, Arduino, and custom PCB development for students, makers, startups, and growing businesses in India.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }
