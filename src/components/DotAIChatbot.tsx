@@ -92,7 +92,7 @@ export default function DotAIChatbot() {
         </a>
         <motion.button onClick={() => setIsOpen(true)} whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="dot-ai-launcher" aria-label="Open Dot AI assistant">
           <span className="dot-ai-launcher-pulse" aria-hidden="true"/>
-          <Bot size={22}/><span>ASK DOT AI</span>
+          <Bot size={22}/>
         </motion.button>
       </div>
 
