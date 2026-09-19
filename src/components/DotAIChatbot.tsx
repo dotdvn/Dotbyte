@@ -1,7 +1,7 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Bot, X, Send, Sparkles, User } from 'lucide-react';
+import { Bot, X, Send, Sparkles, User, ArrowUpRight } from 'lucide-react';
 
 interface Message {
   id: string;
@@ -84,10 +84,17 @@ export default function DotAIChatbot() {
 
   return (
     <>
-      <motion.button onClick={() => setIsOpen(true)} whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className={`dot-ai-launcher ${isOpen ? 'is-hidden' : ''}`} aria-label="Open Dot AI assistant">
-        <span className="dot-ai-launcher-pulse" aria-hidden="true"/>
-        <Bot size={22}/><span>ASK DOT AI</span>
-      </motion.button>
+      <div className={`floating-actions ${isOpen ? 'is-chat-open' : ''}`}>
+        <a className="floating-portfolio" href="https://dotdvn.me" target="_blank" rel="noopener noreferrer" aria-label="Visit DOTDVN portfolio">
+          <span className="portfolio-orbit" aria-hidden="true"><i/></span>
+          <span className="portfolio-copy"><small>MADE BY</small><b>DOTDVN</b></span>
+          <ArrowUpRight size={13}/>
+        </a>
+        <motion.button onClick={() => setIsOpen(true)} whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="dot-ai-launcher" aria-label="Open Dot AI assistant">
+          <span className="dot-ai-launcher-pulse" aria-hidden="true"/>
+          <Bot size={22}/><span>ASK DOT AI</span>
+        </motion.button>
+      </div>
 
       <AnimatePresence>
         {isOpen && (
