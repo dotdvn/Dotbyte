@@ -1,0 +1,20 @@
+import type { IncomingMessage, ServerResponse } from 'node:http';
+import { createClient } from '@supabase/supabase-js';
+const escape = (s: unknown) => String(s ?? '').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]!));
+const link = (s: string) => /^https?:\/\//i.test(s) ? escape(s) : '';
+export default async function handler(req: IncomingMessage, res: ServerResponse) {
+ const url=process.env.VITE_SUPABASE_URL,key=process.env.VITE_SUPABASE_PUBLISHABLE_KEY;
+ if(!url||!key){res.writeHead(503,{'Content-Type':'text/plain'});res.end('Projects are temporarily unavailable.');return;}
+ const slug=new URL(req.url||'/', 'https://dotbyte.dotdvn.me').searchParams.get('slug');
+ try {
+ const client=createClient(url,key,{auth:{persistSession:false,autoRefreshToken:false}});
+ const {data:w,error}=await client.from('works').select('*,work_images(*)').eq('slug',slug||'').eq('status','published').is('deleted_at',null).maybeSingle();
+ if(error)throw error;
+ if(!w){res.writeHead(404,{'Content-Type':'text/html; charset=utf-8','X-Robots-Tag':'noindex'});res.end('<h1>Project not found</h1><a href="/">Back to DotByte</a>');return;}
+ const images=(w.work_images as {path:string;alt:string;caption:string;sort_order:number}[]).sort((a,b)=>a.sort_order-b.sort_order);
+ const signed=images.length?await client.storage.from('work-images').createSignedUrls(images.map(i=>i.path),3600):{data:[]};
+ const cover=signed.data?.[0]?.signedUrl;
+ res.writeHead(200,{'Content-Type':'text/html; charset=utf-8','Cache-Control':'no-store'});
+ res.end(`<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${escape(w.title)} | DotByte Systems</title><meta name="description" content="${escape(w.summary)}"><link rel="canonical" href="https://dotbyte.dotdvn.me/works/${escape(w.slug)}"><meta property="og:title" content="${escape(w.title)}"><meta property="og:description" content="${escape(w.summary)}"><meta property="og:type" content="article"><meta property="og:url" content="https://dotbyte.dotdvn.me/works/${escape(w.slug)}">${cover?`<meta property="og:image" content="${escape(cover)}">`:''}<style>*{box-sizing:border-box}body{margin:0;background:#f0f2e9;color:#183c32;font-family:Arial,sans-serif}header{border-bottom:1px solid #bbc8b8;padding:25px 6vw}a{color:#1764c0}header a{text-decoration:none;font-size:24px;font-weight:bold}main{max-width:900px;padding:40px 24px 90px;margin:auto}h1{font-size:clamp(38px,7vw,72px);line-height:1.06;letter-spacing:-2px;margin:24px 0}.summary{font-size:20px;line-height:1.7}.category{font:12px monospace;text-transform:uppercase;letter-spacing:2px}.tags{display:flex;flex-wrap:wrap;gap:8px}.tags span{background:#dce8e3;padding:9px 14px;border-radius:20px;font-size:12px}figure{margin:30px 0}img{width:100%;border-radius:10px}figcaption{font-size:12px;margin:10px 0}.story{white-space:pre-wrap;line-height:1.9}.links{display:flex;gap:20px;margin-top:30px}</style></head><body><header><a href="/">dotbyte.</a></header><main><a href="/#works">← All works</a><p class="category">${escape(w.category)}</p><h1>${escape(w.title)}</h1><p class="summary">${escape(w.summary)}</p><div class="tags">${w.technologies.map((t:string)=>`<span>${escape(t)}</span>`).join('')}</div>${images.map((i,n)=>signed.data?.[n]?.signedUrl?`<figure><img src="${escape(signed.data[n].signedUrl)}" alt="${escape(i.alt)}" ${n?'loading="lazy"':''}>${i.caption?`<figcaption>${escape(i.caption)}</figcaption>`:''}</figure>`:'').join('')}<p class="story">${escape(w.description)}</p><div class="links">${link(w.live_url)?`<a href="${link(w.live_url)}" target="_blank" rel="noopener noreferrer">Visit project ↗</a>`:''}${link(w.github_url)?`<a href="${link(w.github_url)}" target="_blank" rel="noopener noreferrer">View source ↗</a>`:''}</div></main></body></html>`);
+ }catch{res.writeHead(503,{'Content-Type':'text/plain','Retry-After':'60'});res.end('Could not load this project. Please try again.');}
+}

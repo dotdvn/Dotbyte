@@ -10,6 +10,7 @@ import Footer from './components/Footer';
 import SubscriptionModal from './components/SubscriptionModal';
 import DotAIChatbot from './components/DotAIChatbot';
 import ProjectMatcher from './components/ProjectMatcher';
+import Works from './components/Works';
 import ElectronicsArcade from './components/ElectronicsArcade';
 const HeroNodeGraph=lazy(()=>import('./components/HeroNodeGraph'));
 const services=[
@@ -27,7 +28,7 @@ export default function App(){
  <section id="services" className="studio-wrap studio-section"><div className="section-index micro"><span>01 / WHAT WE MAKE</span><span>ONE WORKSHOP. MANY POSSIBILITIES.</span></div><div className="studio-heading"><h2>Different tools.<br/><span>Same thoughtful approach.</span></h2><p>From your first prototype to your next business idea.<br/>A little expertise, exactly where you need it.</p></div><div className="service-grid">{services.map(({name,tag,description,price,Icon,plan})=><article className="service-card" key={name}><span className="micro">{tag}</span><Icon className="service-icon" strokeWidth={1}/><h3>{name}</h3><p>{description}</p><button onClick={()=>selectPlan(plan,price)}><span>{price}</span><ArrowUpRight size={18}/><span className="sr-only"> — inquire about {name}</span></button></article>)}</div>
  <ProjectMatcher onSelectPlan={selectPlan}/>
  <details className="workshop-details" onToggle={e=>setLabOpen(e.currentTarget.open)}><summary><span><b>Curious how it comes together?</b><small>Explore our interactive design boards and project estimator.</small></span><span className="workshop-toggle">OPEN THE WORKSHOP ↗</span></summary>{labOpen&&<div className="workshop-dark"><Suspense fallback={<p className="p-10">Opening the workshop…</p>}><HeroNodeGraph onStartTrial={()=>selectPlan('Custom project')} onSynthesize={()=>setNotice('Demo simulation complete. Explore the design boards or request a project.')}/></Suspense>{notice&&<p role="status" className="p-6 text-center">{notice}</p>}</div>}</details></section>
- {/* Selected Work is temporarily disabled; ProjectsGallery retains its content. */}
+ <Works/>
  <FeaturesGrid/>
  <section id="philosophy" className="studio-philosophy studio-wrap"><span className="micro">OUR BELIEF</span><blockquote>Good technology should open doors.<br/><em>Not stretch your budget.</em></blockquote><p>We believe that digital platforms and core electronics can be designed with exceptional aesthetic quality while remaining highly affordable and accessible for student prototypes and growing businesses.</p><span className="micro">DOTBYTE SYSTEMS / BUILT WITH INTENTION</span></section>
  <ElectronicsArcade/>

@@ -2,8 +2,27 @@
   "version": 2,
   "rewrites": [
     {
-      "source": "/(.*)",
+      "source": "/works/:slug",
+      "destination": "/api/project?slug=:slug"
+    },
+    {
+      "source": "/sitemap.xml",
+      "destination": "/api/sitemap"
+    },
+    {
+      "source": "/((?!api/).*)",
       "destination": "/index.html"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/admin(.*)",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow"
+        }
+      ]
     }
   ]
 }
